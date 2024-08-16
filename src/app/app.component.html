@@ -1,0 +1,31 @@
+<div style="padding: 1rem">
+  <h3>Name: {{ interViewDetails.name }}</h3>
+  <h3>Time : {{ interViewDetails.time }}</h3>
+  <h3>Date : {{ interViewDetails.date }}</h3>
+  <h3>Maximum Slots : {{ interViewDetails.maximumSlots }}</h3>
+  <h3>Total seleceted: {{ selectedStudentsList?.length }}</h3>
+  <div class="table-container">
+    <div class="table">
+      <h4>All students list</h4>
+      <app-dynamic-table
+        #allStudentsTable
+        [tableData]="allStudentsList"
+        [displayedColumns]="['select', 'id', 'name', 'age', 'gender']"
+        [itemsCanbeSelected]="
+          this.interViewDetails.maximumSlots - this.selectedStudentsList?.length
+        "
+      ></app-dynamic-table>
+      <button [disabled]="isButtonDisabled()" (click)="addStudent()">
+        Add student
+      </button>
+    </div>
+    <div class="table">
+      <h4>Selected Students list</h4>
+      <app-dynamic-table
+        (removeStudent)="removeStudentC($event)"
+        [tableData]="selectedStudentsList"
+        [displayedColumns]="['id', 'name', 'age', 'gender', 'action']"
+      ></app-dynamic-table>
+    </div>
+  </div>
+</div>
